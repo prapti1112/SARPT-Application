@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "272825582655",
+    "firebase_url": "https://sarpf-3e9dd-default-rtdb.firebaseio.com",
+    "project_id": "sarpf-3e9dd",
+    "storage_bucket": "sarpf-3e9dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272825582655:android:1f1d751e2c7cf299b0e48a",
+        "android_client_info": {
+          "package_name": "com.example.sarpt_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272825582655-qpdvlg4m4fstpb3i6d7tg5rbb8bd5g1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgElMy5nmkQjHYd42EsGUuglL7CXa-ZBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272825582655-qpdvlg4m4fstpb3i6d7tg5rbb8bd5g1s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
