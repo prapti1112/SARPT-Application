@@ -12,14 +12,16 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return StreamProvider<CustomUser>.value(
       value: AuthService().user,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primaryColor: Colors.green),
+        theme: ThemeData(
+          primaryColor: Colors.green,
+          primaryColorLight: Colors.green[100],
+        ),
         home: Wrapper(),
       ),
     );

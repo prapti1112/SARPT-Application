@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sarpt_app/models/user.dart';
+import 'package:sarpt_app/services/database.dart';
 
 class AuthService {
 
@@ -17,12 +18,26 @@ class AuthService {
       .map(_userFromFirebaseUser);
   }
 
-//  Sign in with email and password
+  //  Sign in with email and password
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+      return _userFromFirebaseUser(result.user);
+    } catch (err) {
+      print(err.toString());
+      return null;
+    }
+  }
 
   // Register with email and password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(String email, String password, String phoneNumber,String address) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+
+      //creating a record of the user in the database
+      await DatabaseService(uid: result.user.uid).setInitialUserData(phoneNumber, address);
+
       return _userFromFirebaseUser(result.user);
     } catch (err) {
       print(err.toString());
