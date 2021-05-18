@@ -33,6 +33,10 @@ dependencies:
   firebase_database: ^6.0.0
   provider: ^4.3.3
   flutter_spinkit: ^4.1.2+1
+  flutter_thermometer: ^1.0.0
+  convex_bottom_bar: ^2.6.0
+  google_maps_flutter: ^1.0.10
+  location: ^3.2.1
 
 dev_dependencies:
   flutter_test:
@@ -50,8 +54,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/humidity.png
+    - assets/images/maps.png
+    - assets/images/learn.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
