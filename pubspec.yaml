@@ -37,6 +37,7 @@ dependencies:
   convex_bottom_bar: ^2.6.0
   google_maps_flutter: ^1.0.10
   location: ^3.2.1
+  url_launcher: ^5.7.10
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +59,7 @@ flutter:
     - assets/images/humidity.png
     - assets/images/maps.png
     - assets/images/learn.png
+    - assets/images/robot_position_marker.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

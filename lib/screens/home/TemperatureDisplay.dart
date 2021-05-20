@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_thermometer/thermometer.dart';
 
 class ThermometerDisplay extends StatefulWidget {
+  double temperatureValue;
+
+  ThermometerDisplay({this.temperatureValue});
+
   @override
   _ThermometerDisplayState createState() => _ThermometerDisplayState();
 }
 
 class _ThermometerDisplayState extends State<ThermometerDisplay> with TickerProviderStateMixin{
 
-  double teperatureValue = 55;
+  // double teperatureValue = 55;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class _ThermometerDisplayState extends State<ThermometerDisplay> with TickerProv
         child: Center(
           child: TweenAnimationBuilder(
             duration: Duration(milliseconds: 2200),
-            tween: Tween<double>(begin: 0, end: teperatureValue),
+            tween: Tween<double>(begin: 0, end: widget.temperatureValue),
             builder: (BuildContext context, double tempValue, Widget child) {
               return Thermometer(
                 value: tempValue,

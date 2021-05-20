@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class WaterLevelDisplay extends StatefulWidget {
+  double moisturePercentage;
+
+  WaterLevelDisplay({this.moisturePercentage});
 
   @override
   _WaterLevelDisplayState createState() => _WaterLevelDisplayState();
@@ -10,13 +13,17 @@ class WaterLevelDisplay extends StatefulWidget {
 
 class _WaterLevelDisplayState extends State<WaterLevelDisplay> {
 
-  double waterLevel = 35, daysLeft = 10;
+  double waterLevel = 35, daysLeft;
   bool showParameters = false;
 
   @override
   void initState() {
     super.initState();
-
+    /*
+    * moisture = 100% => 20 days
+    * moisture = x% => x * 0.2;
+    */
+    daysLeft = widget.moisturePercentage * 0.2;
     Timer(Duration(milliseconds: 700), () {
       setState(() => showParameters = true);
     });
@@ -36,7 +43,7 @@ class _WaterLevelDisplayState extends State<WaterLevelDisplay> {
                 ),
               Positioned(
                 top: 70,
-                left: 12,
+                left: 15,
                 child: AnimatedOpacity(
                   opacity: (showParameters) ? 1 : 0,
                   duration: Duration(milliseconds: 1500),
@@ -45,7 +52,7 @@ class _WaterLevelDisplayState extends State<WaterLevelDisplay> {
                     children: [
                       SizedBox(
                           height: 30,
-                          child: Text(waterLevel.toString() + "%", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          child: Text(widget.moisturePercentage.toString() + "%", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                           )
                       ),
                       SizedBox(

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class HumidityDisplay extends StatefulWidget {
+  double humidity;
+
+  HumidityDisplay({this.humidity});
+
   @override
   _HumidityDisplayState createState() => _HumidityDisplayState();
 }
@@ -29,7 +33,7 @@ class _HumidityDisplayState extends State<HumidityDisplay> {
                       top: 80,
                       left: 45,
                       child: Text(
-                        "58%",
+                        "${widget.humidity.toInt()}%",
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),

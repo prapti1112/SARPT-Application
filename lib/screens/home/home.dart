@@ -1,13 +1,18 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sarpt_app/screens/forum/forum.dart';
 import 'package:sarpt_app/screens/home/TemperatureDisplay.dart';
 import 'package:sarpt_app/screens/home/humidityDisplay.dart';
 import 'package:sarpt_app/screens/home/phMeter.dart';
 import 'package:sarpt_app/screens/home/waterLevelDisplay.dart';
 import 'package:sarpt_app/services/auth.dart';
 import 'package:sarpt_app/screens/liveTracker/liveTracker.dart';
+import 'package:sarpt_app/services/database.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -15,6 +20,38 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
   int tabIndex = 2;
+  double ph, temperature, humidity, soilMoisture;
+
+  @override
+  void initState() {
+    getParameterInfo();
+    super.initState();
+  }
+
+  void getParameterInfo() async {
+    final User user = await FirebaseAuth.instance.currentUser;
+    print(user.uid + " " + user.email);
+
+    List<double> farmParameters = await DatabaseService(user: user).getParameterData();
+    print("Farm parameters: $farmParameters");
+    setState(() {
+      ph = farmParameters[0]??7.0;
+      temperature = farmParameters[1]??38.0;
+      humidity = farmParameters[2]??52.0;
+      soilMoisture = farmParameters[3]??35.0;
+    });
+  }
+
+  void moveToYoutube() async {
+    const String url = "https://www.youtube.com/results?search_query=How+to+improve+Indian+farming+in+Hindi";
+    if(await canLaunch(url)) {
+      final bool nativeAppLaunchSucceeded = await launch(url, universalLinksOnly: true);
+
+      if(!nativeAppLaunchSucceeded) {
+        await launch(url, forceWebView: true);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +62,29 @@ class _HomeState extends State<Home> {
         elevation: 0.0,
         actions: [
           FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text("Logout"),
+            icon: Icon(Icons.add_shopping_cart_rounded, color: Colors.green[100],),
+            label: Text("Shop", style: TextStyle(color: Colors.green[100]),),
+            onPressed: () async {
+              //  launch the website in browser
+              const String url = "http://enroot.3hundredsolutions.tech/index.html";
+
+              if(await canLaunch(url)) {
+                await launch(url, forceWebView: false);
+              } else {
+                throw "Couldn't launch the $url";
+              }
+            },
+          ),
+
+          FlatButton.icon(
+            icon: Icon(Icons.person, color: Colors.green[100],),
+            label: Text("Logout", style: TextStyle(color: Colors.green[100]),),
             onPressed: () async {
               //  Sign Out
               await _auth.SignOut();
             },
           ),
+
         ],
       ),
       body: Container(
@@ -53,7 +106,7 @@ class _HomeState extends State<Home> {
                   ),
                   //  ph meter widget
                   PhMeter(
-                    ph: 8.0,
+                    ph: ph??7.0,
                   ),
                 ],
               ),
@@ -76,7 +129,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                        WaterLevelDisplay(),
+                        WaterLevelDisplay(moisturePercentage: soilMoisture??35,),
                       ],
                     ),
                   ),
@@ -92,7 +145,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                        ThermometerDisplay(),
+                        ThermometerDisplay(temperatureValue: temperature??38.0,),
                       ],
                     ),
                   ),
@@ -109,7 +162,7 @@ class _HomeState extends State<Home> {
                     "Humidity",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  HumidityDisplay(),
+                  HumidityDisplay(humidity: humidity??52.0,),
                   // Image.asset("assets/images/humidity.png", scale: 3,),
                 ],
               ),
@@ -186,6 +239,18 @@ class _HomeState extends State<Home> {
         onTap: (int i) {
           print('click index=$i');
           setState(() => tabIndex = i);
+          if(i == 0) {
+            print("Learn more tab");
+            moveToYoutube();
+          } else if(i == 1) {
+            print("Moving to forum screen");
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ForumScreen(youtubeNavigation: moveToYoutube)));
+          } else {
+            print("Finding the robot location");
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LiveTracker()));
+          }
         },
       ),
     );
