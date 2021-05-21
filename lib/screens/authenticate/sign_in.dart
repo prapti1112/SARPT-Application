@@ -105,9 +105,8 @@ class _SignInState extends State<SignIn> {
                       onChanged: (value) => setState(() => this._password = value),
                       validator: (value) => (value.length < 6) ?  "Enter a password 6+ chars long" : null,
                       decoration: InputDecoration(
-                        labelText: "Password",
+                        labelText: "Robot Code",
                         hintText: "Your password ....",
-                        // errorText: (_password.isEmpty) ?  "Enter a password" : "",
                         filled: true,
                         fillColor: Colors.white,
                         focusedBorder: OutlineInputBorder(

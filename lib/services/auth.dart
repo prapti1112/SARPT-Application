@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:sarpt_app/models/user.dart';
 import 'package:sarpt_app/services/database.dart';
+import 'package:flutter_string_encryption/flutter_string_encryption.dart';
+import 'package:crypto/crypto.dart';
 
 class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final cryptor = new PlatformStringCryptor();
 
 //  Create a custom user object from Firebase user
   CustomUser _userFromFirebaseUser(User user) {
@@ -33,8 +37,9 @@ class AuthService {
   // Register with email and password
   Future registerWithEmailAndPassword(String email, String password, String phoneNumber,String address) async {
     try {
+      password = sha256.convert(utf8.encode(password)).toString();
+      print("Encrpted password: $password");
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-
       //creating a record of the user in the database
       await DatabaseService(user: result.user).setInitialUserData(phoneNumber, address);
 

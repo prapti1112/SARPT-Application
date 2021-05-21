@@ -116,7 +116,7 @@ class _RegisterState extends State<Register> {
                           ? "Enter a password 6+ chars long"
                           : null,
                       decoration: InputDecoration(
-                        labelText: "Password",
+                        labelText: "Robot Code",
                         hintText: "Your password ....",
                         filled: true,
                         fillColor: Colors.white,
@@ -147,14 +147,12 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     width: 295,
                     child: TextFormField(
-                      // onChanged: (value) => setState(() => this._password = value),
                       validator: (value) => (value != _password)
                           ? "Passwords do not match"
                           : null,
                       decoration: InputDecoration(
-                        labelText: "Confirm Password",
+                        labelText: "Confirm Robot Code",
                         hintText: "Your password ....",
-                        // errorText: (_password.isEmpty) ?  "Enter a password" : "",
                         filled: true,
                         fillColor: Colors.white,
                         focusedBorder: OutlineInputBorder(

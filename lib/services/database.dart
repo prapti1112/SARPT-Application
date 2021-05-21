@@ -22,7 +22,7 @@ class DatabaseService {
     List<double> params = [];
     DataSnapshot snapshot = await userReference.child("Users").child(user.uid).once();
     print("Data recieved: ${snapshot.value}");
-    params = [snapshot.value['ph'].toDouble(), snapshot.value['temperature'].toDouble() , snapshot.value['Humidity'].toDouble(), snapshot.value['soil_moisture'].toDouble()];
+    params = [(snapshot.value['ph']??7.0).toDouble(), (snapshot.value['temperature']??38.0).toDouble(), (snapshot.value['Humidity']??52.0).toDouble(), (snapshot.value['soil_moisture']??35.0).toDouble()];
     return params;
   }
 }

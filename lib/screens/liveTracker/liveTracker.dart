@@ -97,7 +97,7 @@ class _LiveTrackerState extends State<LiveTracker> {
       strokeColor: Colors.green,
       strokeWidth: 2,
       center: _currentLocation,
-      fillColor: Colors.blue.withAlpha(70),
+      fillColor: Colors.green.withAlpha(70),
     );
     super.initState();
   }
@@ -159,7 +159,7 @@ class _LiveTrackerState extends State<LiveTracker> {
         strokeColor: Colors.green,
         strokeWidth: 2,
         center: _currentLocation,
-        fillColor: Colors.blue.withAlpha(70),
+        fillColor: Colors.green.withAlpha(70),
       );
     });
   }
