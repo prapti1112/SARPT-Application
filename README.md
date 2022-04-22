@@ -1,6 +1,6 @@
 # sarpt_app
 
-An application to support the SARPT robot designed to make the kabour intensity tasks of farming simpler
+An application to support the SARPT robot designed to make the labour intensity tasks of farming simpler
 
 ## Getting Started
 
